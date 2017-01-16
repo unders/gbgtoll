@@ -5,5 +5,23 @@ GBG Toll calculates the total fee for one day
 * [Tider och belopp i Göteborg](https://goo.gl/dr1Sgy)
 * [Undantag från trängselskatt](https://goo.gl/l5Mb0t)
 
-# Test Specification
-See [prog_test.go](prog/prog_test.go) file.
+## Implementation
+* See: [TestProg](prog/prog_test.go)
+
+## Test
+
+Run all tests:
+```
+make test
+```
+
+Run specification test:
+```
+make spec
+```
+
+# Help
+For help
+```
+make
+```
