@@ -14,6 +14,10 @@ spec:
 test:
 	go test github.com/unders/gbgtoll/...
 
+.PHONY: push
+push: test
+	git push
+
 .PHONY: run
 run:
 	gbgtoll car -d=2017-01-01 -t=05:56,06:10
