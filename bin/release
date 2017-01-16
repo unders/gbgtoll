@@ -1,0 +1,10 @@
+main() {
+	local version=$1
+	local darwin=release/gbgtoll_"$version"_darwin_amd64
+	local linux=release/gbgtoll_"$version"_linux_amd64
+
+	go build -o $darwin -a -ldflags '-extldflags "-static"'
+	go build -o $linux -a -ldflags '-extldflags "-static"'
+}
+
+main $@

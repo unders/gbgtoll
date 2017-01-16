@@ -20,7 +20,7 @@ Run specification test:
 make spec
 ```
 
-# Help
+## Help
 For help
 ```
 make

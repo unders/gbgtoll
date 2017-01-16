@@ -1,3 +1,5 @@
+VERSION=v0.0.1
+
 .PHONY: help
 help:
 	cat Makefile
@@ -17,6 +19,15 @@ test:
 .PHONY: push
 push: test
 	git push
+
+.PHONY: release
+release: test
+	@mkdir -p release
+	@./bin/release $(VERSION)
+
+.PHONY: clean
+clean:
+	@rm -rf release
 
 .PHONY: run
 run: install
