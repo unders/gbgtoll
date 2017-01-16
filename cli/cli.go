@@ -8,7 +8,7 @@ import (
 	"time"
 
 	ttime "github.com/unders/gbgtoll/time"
-	"github.com/unders/gbgtoll/toll"
+	"github.com/unders/gbgtoll/vehicle"
 )
 
 const usage = `
@@ -39,7 +39,7 @@ Examples:
 
 // Arg data parsed from the command line
 type Arg struct {
-	Vehicle toll.Vehicle
+	Vehicle vehicle.Type
 	Series  []time.Time
 }
 
@@ -60,7 +60,7 @@ func Parse(args []string) (Arg, string, error) {
 	f.SetOutput(buf)
 
 	var err error
-	if arg.Vehicle, err = toll.LookupVehicle(args[1]); err != nil {
+	if arg.Vehicle, err = vehicle.Get(args[1]); err != nil {
 		return arg, usage, err
 	}
 

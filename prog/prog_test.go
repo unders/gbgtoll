@@ -8,7 +8,7 @@ import (
 	"github.com/unders/gbgtoll/prog"
 	"github.com/unders/gbgtoll/test"
 	ttime "github.com/unders/gbgtoll/time"
-	"github.com/unders/gbgtoll/toll"
+	"github.com/unders/gbgtoll/vehicle"
 )
 
 func TestProg(t *testing.T) {
@@ -26,7 +26,7 @@ func TestProg(t *testing.T) {
 
 func noTollForFreeVehicles(t *testing.T) {
 	want := prog.Result{Type: prog.TollFreeVehicle, Fee: 0}
-	vehicles := []toll.Vehicle{toll.Emergency, toll.Bus, toll.Diplomat}
+	vehicles := []vehicle.Type{vehicle.Emergency, vehicle.Bus, vehicle.Diplomat}
 	t.Logf("toll free vehicles: %#v", vehicles)
 
 	for _, v := range vehicles {
@@ -42,7 +42,7 @@ func timeSeriesMustBeOnSameDay(t *testing.T) {
 		test.OnDay(t, "2017-01-03")("06:40"),
 	}
 	want := prog.Result{Type: prog.NotSameDay, Fee: 0}
-	got := prog.CalcTollFee(toll.Car, ttime.NewSeries(ts), 60)
+	got := prog.CalcTollFee(vehicle.Car, ttime.NewSeries(ts), 60)
 	if want != got {
 		t.Errorf("\nWant: %#v\n Got: %#v", want, got)
 	}
@@ -52,13 +52,13 @@ func noTollOnWeekends(t *testing.T) {
 	want := prog.Result{Type: prog.TollFreeDay, Fee: 0}
 
 	ts := []time.Time{test.Saturday(t)}
-	got := prog.CalcTollFee(toll.Pickup, ttime.NewSeries(ts), 60)
+	got := prog.CalcTollFee(vehicle.Pickup, ttime.NewSeries(ts), 60)
 	if want != got {
 		t.Errorf("\nWant: %#v\n Got: %#v", want, got)
 	}
 
 	ts = []time.Time{test.Sunday(t)}
-	got = prog.CalcTollFee(toll.Pickup, ttime.NewSeries(ts), 60)
+	got = prog.CalcTollFee(vehicle.Pickup, ttime.NewSeries(ts), 60)
 	if want != got {
 		t.Errorf("\nWant: %#v\n Got: %#v", want, got)
 	}
@@ -69,7 +69,7 @@ func yearWorks(day string) func(*testing.T) {
 	return func(t *testing.T) {
 		ts := []time.Time{test.OnDay(t, day)("06:29")}
 
-		got := prog.CalcTollFee(toll.Pickup, ttime.NewSeries(ts), 60)
+		got := prog.CalcTollFee(vehicle.Pickup, ttime.NewSeries(ts), 60)
 		if want != got {
 			t.Errorf("\nWant: %#v\n Got: %#v", want, got)
 		}
@@ -86,7 +86,7 @@ func noTollOnTheseDays(year string, days []string) func(t *testing.T) {
 
 		for _, tt := range times {
 			ts := ttime.NewSeries([]time.Time{tt})
-			got := prog.CalcTollFee(toll.Pickup, ts, 60)
+			got := prog.CalcTollFee(vehicle.Pickup, ts, 60)
 			if want != got {
 				t.Errorf("\nWant: %#v\n Got: %#v", want, got)
 			}
@@ -133,7 +133,7 @@ func calcTollFee(tt *testing.T) {
 		tt.Run(tc.t.String()+fee, func(tt *testing.T) {
 			ts := ttime.NewSeries([]time.Time{tc.t})
 
-			got := prog.CalcTollFee(toll.Pickup, ts, 60)
+			got := prog.CalcTollFee(vehicle.Pickup, ts, 60)
 			if tc.want != got {
 				tt.Errorf("\nWant: %#v\n Got: %#v\n", tc.want, got)
 			}
@@ -153,7 +153,7 @@ func calcTollMax(max int) func(*testing.T) {
 		want := prog.Result{Type: prog.Fee, Fee: max}
 
 		t.Run("Max"+want.String(), func(tt *testing.T) {
-			got := prog.CalcTollFee(toll.Pickup, ts69, max)
+			got := prog.CalcTollFee(vehicle.Pickup, ts69, max)
 			if want != got {
 				t.Errorf("\nWant: %#v\n Got: %#v\n", want, got)
 			}

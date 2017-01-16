@@ -5,12 +5,13 @@ import (
 	"time"
 
 	ttime "github.com/unders/gbgtoll/time"
+	"github.com/unders/gbgtoll/vehicle"
 )
 
 // VehicleIsFree returns true if Vehicle is toll free
-func VehicleIsFree(v Vehicle) bool {
+func VehicleIsFree(v vehicle.Type) bool {
 	switch v {
-	case Car, Pickup:
+	case vehicle.Car, vehicle.Pickup:
 		return false
 	default:
 		return true

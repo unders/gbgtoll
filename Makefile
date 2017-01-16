@@ -19,7 +19,7 @@ push: test
 	git push
 
 .PHONY: run
-run:
+run: install
 	gbgtoll car -d=2017-01-01 -t=05:56,06:10
 	@echo ""
 	gbgtoll emergency -d=2017-01-01 -t=05:56,06:10
