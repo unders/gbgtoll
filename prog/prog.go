@@ -1,14 +1,16 @@
 package prog
 
 import (
+	ttime "time"
+
 	"github.com/unders/gbgtoll/time"
 	"github.com/unders/gbgtoll/toll"
 	"github.com/unders/gbgtoll/vehicle"
 )
 
 // CalcTollFee returns the toll fee
-func CalcTollFee(v vehicle.Type, ts time.Series,
-	maxAmount int) Result {
+func CalcTollFee(v vehicle.Type, s []ttime.Time, maxAmount int) Result {
+	ts := time.NewSeries(s)
 
 	if toll.VehicleIsFree(v) {
 		return Result{Fee: 0, Type: TollFreeVehicle}

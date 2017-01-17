@@ -6,7 +6,6 @@ import (
 
 	"github.com/unders/gbgtoll/cli"
 	"github.com/unders/gbgtoll/prog"
-	"github.com/unders/gbgtoll/time"
 )
 
 // MaxAmount the max amount to pay per day
@@ -20,7 +19,6 @@ func main() {
 		os.Exit(0)
 	}
 
-	ts := time.NewSeries(arg.Series)
-	r := prog.CalcTollFee(arg.Vehicle, ts, MaxAmount)
+	r := prog.CalcTollFee(arg.Vehicle, arg.Series, MaxAmount)
 	fmt.Println(r)
 }

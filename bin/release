@@ -3,8 +3,8 @@ main() {
 	local darwin=release/gbgtoll_"$version"_darwin_amd64
 	local linux=release/gbgtoll_"$version"_linux_amd64
 
-	GOOS=darwin GOARCH=amd64 go build -o $darwin -a -ldflags '-extldflags "-static"'
-	GOOS=linux GOARCH=amd64 go build -o $linux -a -ldflags '-extldflags "-static"'
+	GOOS=darwin GOARCH=amd64 go build -v -o $darwin -a -ldflags '-extldflags "-static"'
+	GOOS=linux GOARCH=amd64 go build -v -o $linux -a -ldflags '-extldflags "-static"'
 }
 
 main $@
